@@ -9,6 +9,8 @@ check_questions.js
 question_quality_report.json
 QA_LOG.md
 local_server.js
+optimize_background.py
+assets/*-master.png
 
 # קובצי מערכת
 .DS_Store
