@@ -3,7 +3,7 @@
 
   const LETTERS = ['א', 'ב', 'ג', 'ד'];
   const MIXED_SIZE = 25;
-  const STORAGE_KEY = 'tour-guide-christianity-quiz-v1';
+  const STORAGE_KEY = 'tour-guide-christianity-quiz-v2';
   const questions = window.QUESTIONS || [];
 
   const $ = (selector) => document.querySelector(selector);

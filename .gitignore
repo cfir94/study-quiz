@@ -29,3 +29,10 @@ QUESTION_AUDIT.md
 assets/christianity-tour-guide-share.jpg
 assets/christianity-tour-guide-icon.png
 assets/favicon-48.png
+
+# כלי סידור פדגוגי מקומיים
+classify_question_order.py
+apply_pedagogical_order.js
+validate_pedagogical_order.js
+question_order_plan.json
+question_order_audit.json
