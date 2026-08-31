@@ -36,3 +36,18 @@ apply_pedagogical_order.js
 validate_pedagogical_order.js
 question_order_plan.json
 question_order_audit.json
+
+# כלי ודוחות איזון אפשרויות מקומיים
+analyze_option_bias.js
+option_bias_report.json
+balance_option_lengths.py
+rebalance_biased_options.py
+generate_rebalance_candidates.py
+validate_rebalance_semantics.py
+apply_approved_rebalances.js
+apply_remaining_rebalances.js
+option_rebalance/
+semantic_rebalance_review.json
+remaining_option_rebalance.json
+questions.stage1.js
+questions.before_length_balance.js
