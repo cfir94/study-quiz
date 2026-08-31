@@ -2,41 +2,105 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="שאלון לימודי אינטראקטיבי למבחן">
-  <title>שאלון לימודי</title>
-  <style>
-    :root { color-scheme: light; }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 2rem;
-      font-family: Arial, "Noto Sans Hebrew", sans-serif;
-      color: #15243b;
-      background: linear-gradient(135deg, #edf5ff, #f8fbff);
-    }
-    main {
-      width: min(100%, 42rem);
-      padding: 3.25rem 2.5rem;
-      text-align: center;
-      background: #fff;
-      border: 1px solid #dce7f5;
-      border-radius: 1.25rem;
-      box-shadow: 0 1rem 3rem rgba(20, 63, 112, .12);
-    }
-    h1 { margin: 0 0 1rem; font-size: clamp(2rem, 6vw, 3rem); }
-    p { margin: 0; color: #51627c; font-size: 1.1rem; line-height: 1.8; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#091724">
+  <meta name="description" content="מבחן תרגול בנצרות לתלמידי קורס מורי דרך — 150 שאלות המבוססות על חומר הקורס.">
+  <title>נצרות · אימון למורי דרך</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <h1>שאלון לימודי</h1>
-    <p>האתר מוכן. תוכן השאלון יתווסף לאחר קבלת נושא המבחן והדרישות.</p>
+  <main id="app">
+    <section class="screen active" id="screen-home" aria-labelledby="home-title">
+      <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+      <header class="home-header">
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true"><span></span><i></i></div>
+          <div><p class="eyebrow">קורס מורי דרך</p><h1 id="home-title">נצרות</h1></div>
+        </div>
+        <button class="icon-button" id="reset-progress" type="button" aria-label="איפוס ההתקדמות" title="איפוס ההתקדמות">↺</button>
+      </header>
+
+      <section class="hero-card">
+        <div class="hero-topline"><span class="status-dot"></span><span>מבחן תרגול מבוסס חומר הקורס</span></div>
+        <h2>לומדים את הסיפור, האתרים והזרמים.</h2>
+        <p>150 שאלות חזרה שנבנו אך ורק מחומר שלוש מחברות הקורס. אחרי כל תשובה יופיע הסבר קצר והפניית יחידת לימוד.</p>
+        <div class="hero-stats" aria-label="נתוני המבחן">
+          <div><b id="question-total">150</b><span>שאלות</span></div>
+          <div><b id="done-total">0</b><span>נענו</span></div>
+          <div><b id="mastery-total">0%</b><span>דיוק מצטבר</span></div>
+        </div>
+      </section>
+
+      <section class="section-block" aria-labelledby="mode-title">
+        <div class="section-head"><div><p class="eyebrow">בחרו מסלול</p><h2 id="mode-title">מתחילים לתרגל</h2></div><span class="count-chip">150</span></div>
+        <div class="mode-grid">
+          <button class="mode-card mode-primary" data-mode="full" type="button">
+            <span class="mode-index">01</span><strong>מסע מלא</strong><small>כל 150 השאלות לפי סדר הקורס</small><em>התחלה ←</em>
+          </button>
+          <button class="mode-card" data-mode="mixed" type="button">
+            <span class="mode-index">02</span><strong>תרגול מעורב</strong><small>25 שאלות אקראיות מכל היחידות</small><em>התחלה ←</em>
+          </button>
+          <button class="mode-card" data-mode="mistakes" id="mistakes-mode" type="button">
+            <span class="mode-index">03</span><strong>חזרה על טעויות</strong><small id="mistakes-subtitle">אין טעויות שמורות עדיין</small><em>חזרה ←</em>
+          </button>
+        </div>
+      </section>
+
+      <section class="section-block units-section" aria-labelledby="unit-title">
+        <div class="section-head"><div><p class="eyebrow">לפי נושא</p><h2 id="unit-title">יחידות הלימוד</h2></div></div>
+        <div class="unit-list" id="unit-list"></div>
+      </section>
+
+      <aside class="source-note"><span class="note-line" aria-hidden="true"></span><p><b>הקפדה על מקור:</b> מאגר השאלות נשען על מחברות נצרות א׳, ב׳ וג׳ שסופקו לקורס. כל שאלה כוללת הפניית מקור פנימית.</p></aside>
+    </section>
+
+    <section class="screen" id="screen-quiz" aria-live="polite">
+      <header class="quiz-header">
+        <button class="icon-button" id="quit-quiz" type="button" aria-label="חזרה למסך הבית">×</button>
+        <div class="quiz-heading"><p id="quiz-unit">יחידת לימוד</p><h2 id="quiz-mode-title">תרגול</h2></div>
+        <div class="score-chip" aria-label="תשובות נכונות"><b id="correct-count">0</b><span>נכון</span></div>
+      </header>
+      <div class="progress-track" aria-label="התקדמות"><i id="progress-fill"></i></div>
+      <div class="progress-copy"><span id="progress-label">שאלה 1 מתוך 25</span><span id="progress-percent">0%</span></div>
+
+      <article class="question-card" id="question-card">
+        <div class="question-number" id="question-number">01</div>
+        <p class="question-kicker">בחרו את התשובה המדויקת ביותר</p>
+        <h3 id="question-text">טוענים שאלה…</h3>
+        <div class="answer-grid" id="answer-grid"></div>
+      </article>
+
+      <section class="feedback-card" id="feedback-card" hidden>
+        <div class="feedback-status"><span id="feedback-symbol">✓</span><div><h3 id="feedback-title">תשובה נכונה</h3><p id="feedback-answer"></p></div></div>
+        <p id="feedback-explanation"></p>
+        <div class="source-tag"><span>מקור</span><b id="feedback-source"></b></div>
+        <button class="continue-button" id="next-question" type="button">לשאלה הבאה <span>←</span></button>
+      </section>
+
+      <footer class="quiz-footer"><button id="show-source" type="button" class="text-control">הצגת מקור השאלה</button><span id="question-source" hidden></span></footer>
+    </section>
+
+    <section class="screen" id="screen-result" aria-labelledby="result-title">
+      <div class="result-wrap">
+        <div class="result-symbol" id="result-symbol">✓</div>
+        <p class="eyebrow">סיכום המסלול</p>
+        <h2 id="result-title">התרגול הושלם</h2>
+        <p class="result-summary" id="result-summary"></p>
+        <div class="result-stats">
+          <div><b id="result-score">0%</b><span>דיוק</span></div>
+          <div><b id="result-correct">0</b><span>נכונות</span></div>
+          <div><b id="result-mistakes">0</b><span>לחזרה</span></div>
+        </div>
+        <section class="review-list-wrap" id="review-wrap" hidden>
+          <div class="section-head compact"><div><p class="eyebrow">כדאי לחזור על</p><h3>שאלות שלא נענו נכון</h3></div></div>
+          <ol class="review-list" id="review-list"></ol>
+        </section>
+        <div class="result-actions"><button class="secondary-button" id="home-button" type="button">לתפריט</button><button class="primary-button" id="again-button" type="button">תרגול נוסף</button></div>
+      </div>
+    </section>
   </main>
+  <noscript>יש להפעיל JavaScript כדי להשתמש במבחן.</noscript>
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
-
-<!-- Initial GitHub Pages placeholder. -->
