@@ -79,9 +79,9 @@
   }
 
   function buildOptions(question) {
-    const pool = unique(questions.map((item) => item.answer).filter((answer) => answer !== question.answer));
-    const distractors = shuffle(pool).slice(0, 3);
-    return shuffle([question.answer, ...distractors]);
+    // Each question now carries four course-grounded options that were reviewed together.
+    // We shuffle only their order, never substitute unrelated answers from other questions.
+    return shuffle([...question.options]);
   }
 
   function startRun(selectedQuestions, title) {

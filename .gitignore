@@ -14,3 +14,18 @@ assets/*-master.png
 
 # קובצי מערכת
 .DS_Store
+
+# תוצרי ביקורת ושחזור מקומיים
+audit_packets/
+audit_rewrites/
+audit_judgments/
+prepare_audit_packets.js
+rewrite_questions_with_audit.py
+judge_rewritten_questions.py
+build_updated_questions.js
+validate_release.js
+prepare_brand_assets.py
+QUESTION_AUDIT.md
+assets/christianity-tour-guide-share.jpg
+assets/christianity-tour-guide-icon.png
+assets/favicon-48.png
