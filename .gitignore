@@ -51,3 +51,8 @@ semantic_rebalance_review.json
 remaining_option_rebalance.json
 questions.stage1.js
 questions.before_length_balance.js
+
+# כלי ודוחות תיקון חזרות מקומיים
+resequence_foundations.js
+foundations_resequence_audit.json
+foundations_overlap_audit.md
